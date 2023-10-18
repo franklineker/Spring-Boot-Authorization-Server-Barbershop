@@ -6,11 +6,11 @@ spring:
       host: localhost
       database: drnavalhabarbershop
       port: 27017
-  servlet:
-    multipart:
-      max-file-size: 256MB
-      max-request-size: 256MB
-      enabled: true
+    servlet:
+      multipart:
+        max-file-size: 256MB
+        max-request-size: 256MB
+        enabled: true
   security:
     oauth2:
       client:
@@ -43,5 +43,5 @@ logging:
     org:
       springframework:
         security:
-          - DEBUG
-          - oauth2: DEBUG
+          - TRACE
+          - oauth2: TRACE

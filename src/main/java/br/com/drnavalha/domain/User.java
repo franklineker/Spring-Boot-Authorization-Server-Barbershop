@@ -1,5 +1,6 @@
 package br.com.drnavalha.domain;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,6 +22,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     private String id;
+    @NotNull
     private String email;
     private String fullName;
     private String firstName;
@@ -44,27 +46,27 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return this.email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return !expired;
+        return !this.expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return !this.locked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return !credentialsExpired;
+        return !this.credentialsExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return !disable;
+        return !this.disable;
     }
 
 }

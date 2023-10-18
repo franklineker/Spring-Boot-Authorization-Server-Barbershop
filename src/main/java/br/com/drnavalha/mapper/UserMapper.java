@@ -1,6 +1,5 @@
 package br.com.drnavalha.mapper;
 
-import br.com.drnavalha.domain.Barber;
 import br.com.drnavalha.domain.User;
 import br.com.drnavalha.web.dto.UserRequest;
 import br.com.drnavalha.web.dto.UserResponse;
@@ -10,7 +9,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 @NoArgsConstructor
 public class UserMapper {
 
-    private Barber barber;
     public static User toUser(UserRequest request) {
         return request != null ? User
                 .builder()

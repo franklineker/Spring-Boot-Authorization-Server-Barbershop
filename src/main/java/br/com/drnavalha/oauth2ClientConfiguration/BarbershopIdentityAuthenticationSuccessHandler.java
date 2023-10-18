@@ -18,11 +18,9 @@ public class BarbershopIdentityAuthenticationSuccessHandler implements Authentic
     private final AuthenticationSuccessHandler delegate = new SavedRequestAwareAuthenticationSuccessHandler();
     private Consumer<OAuth2User> oAuth2UserHandler = (user) -> {};
     private Consumer<OidcUser> oidcUserHandler = (user) -> this.oAuth2UserHandler.accept(user);
-
-
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-
+        System.out.println(authentication);
         if (authentication instanceof OAuth2AuthenticationToken) {
             if (authentication.getPrincipal() instanceof OidcUser) {
                 this.oidcUserHandler.accept((OidcUser) authentication.getPrincipal());
@@ -31,11 +29,17 @@ public class BarbershopIdentityAuthenticationSuccessHandler implements Authentic
             }
         }
 
+
+
         this.delegate.onAuthenticationSuccess(request, response,authentication);
     }
 
     public void setOAuth2UserHandler(Consumer<OAuth2User> oAuth2UserHandler) {
         this.oAuth2UserHandler = oAuth2UserHandler;
+    }
+
+    public Consumer<OAuth2User> getOAuth2UserHandler() {
+        return oAuth2UserHandler;
     }
 
     public void setOidcUserHandler (Consumer<OidcUser> oidcUserHandler) {

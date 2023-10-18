@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Logout</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dr. Navalha Login</title>
 </head>
 <body>
-<h1>Logout</h1>
+<div class="container">
+    <form method="post" th:action="@{/logout}">
+        <h1>Tem certeza que deseja fazer logout?</h1>
+        <button type="submit">Sim</button>
+        <a th:href="@{http://localhost:4200}"><button type="button">Não</button></a>
+    </form>
+</div>
 </body>
 </html>
