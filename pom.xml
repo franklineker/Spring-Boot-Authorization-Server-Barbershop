@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.drnavalha</groupId>
-	<artifactId>Barbershop-authorization</artifactId>
+	<artifactId>barbershop-authorization</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>drnavalha</name>
 	<description>Gerenciador da agenda da barbearia</description>

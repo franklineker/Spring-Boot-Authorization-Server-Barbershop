@@ -1,12 +1,15 @@
-FROM openjdk:17
+FROM --platform=linux/amd64 maven:3.8.5-openjdk-17 as builder
 
 WORKDIR /app
 
-COPY src ./src
 COPY pom.xml .
+COPY src ./src
 
-ADD target/drnavalha-0.0.1-SNAPSHOT.jar app.jar
+RUN mvn package -DskipTests
 
-CMD ["java", "-jar", "app.jar"]
+FROM --platform=linux/amd64 openjdk:17
 
+COPY --from=builder /app/target/barbershop-authorization-*.jar /barbershop-authorization.jar
 
+CMD ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/barbershop-authorization.jar"]
+EXPOSE 8081
