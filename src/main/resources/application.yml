@@ -3,7 +3,11 @@ server:
 spring:
   data:
     mongodb:
+<<<<<<< HEAD
       host: ${DATA_SOURCE_URL}
+=======
+      uri: ${DATA_SOURCE_URI}
+>>>>>>> d96c4a08fbb47d49a4d9dc59b96922baeb355310
       database: ${DATA_SOURCE_DBNAME}
       port: ${DATA_SOURCE_PORT}
     servlet:
@@ -40,6 +44,7 @@ config:
   uris:
     issuer-uri: ${ISSUER_URI}
     logout-uri: ${LOGOUT_URI}
+    angular-uri: ${ANGULAR_URI}
 
 logging:
   level:

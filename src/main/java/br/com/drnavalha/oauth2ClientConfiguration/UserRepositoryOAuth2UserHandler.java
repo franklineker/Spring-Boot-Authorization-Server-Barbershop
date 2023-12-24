@@ -44,7 +44,7 @@ public class UserRepositoryOAuth2UserHandler implements Consumer<OAuth2User> {
         System.out.println("entrou no create client");
         RestTemplate restTemplate = new RestTemplate();
 
-        String url = "http://localhost:9000/clients/save";
+        String url = "http://34.29.168.109:9000/clients/save";
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

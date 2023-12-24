@@ -1,11 +1,6 @@
 version: '3.8'
 
 services:
-  drnavalhabarbershop:
-    image: drnavalhabarbershop:1.0
-    container_name: drnavalhabarbershop
-    ports:
-      - 8081:8081
 
   mongodb:
     image: mongo:latest
@@ -13,20 +8,47 @@ services:
     ports:
       - 27017:27017
     networks:
-      - mongo-database
+      - node-network
 
-  mongo-express:
-    image: mongo-express:latest
-    container_name: mongo-express-barbershop
+  authorization-server:
+    image: franklineker/barbershop-authorization:v1.0.3
+    container_name: authorization-server
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongodb
-      - ME_CONFIG_BASICAUTH_USERNAME=root
-      - ME_CONFIG_BASICAUTH_PASSWORD=root
+      - DATA_SOURCE_URL=mongodb
+      - DATA_SOURCE_DBNAME=drnavalhabarbershop
+      - DATA_SOURCE_PORT=27017
+      - ISSUER_URI=http://localhost:8081
+      - LOGOUT_URI=http://localhost:8081/logout
+      - ANGULAR_URI=http://angular-barbershop:4200
     ports:
-      - 8082:8081
+      - 8081:8081
     networks:
-      - mongo-database
+      - node-network
+
+  resource-server:
+    image: franklineker/resource-server:v1.0.1
+    container_name: resource-server
+    environment:
+      - DATA_SOURCE_URL=mongodb
+      - DATA_SOURCE_DBNAME=drnavalhabarbershop
+      - DATA_SOURCE_PORT=27017
+      - ISSUER_URI=http://localhost:8081
+      - ANGULAR_URI=http://angular-barbershop:4200
+    ports:
+      - 9000:9000
+    depends_on:
+      - authorization-server
+    networks:
+      - node-network
+
+  angular-barbershop:
+    image: franklineker/angular-barbershop-teste:v1.0.0  #franklineker/frontend:v1.0.0
+    container_name: angular-barbershop
+    ports:
+      - 8000:8000
+    networks:
+      - node-network
 
 networks:
-  mongo-database:
+  node-network:
     driver: bridge

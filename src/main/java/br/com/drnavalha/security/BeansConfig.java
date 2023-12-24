@@ -1,5 +1,6 @@
 package br.com.drnavalha.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,10 @@ import static org.springframework.web.cors.CorsConfiguration.ALL;
 
 @Configuration
 public class BeansConfig {
+
+    @Value("${config.uris.angular-uri}")
+    private String ANGULAR_URI;
+
     @Bean
     public PasswordEncoder passwordEncoder()
     {
@@ -31,23 +36,16 @@ public class BeansConfig {
         cors.addAllowedHeader("*");
         cors.addAllowedMethod("*");
         cors.setAllowCredentials(true);
+<<<<<<< HEAD
         cors.addAllowedOrigin(ALL);
+=======
+        cors.addAllowedOrigin(ANGULAR_URI);
+        cors.addAllowedOrigin("http://localhost:4200");
+>>>>>>> d96c4a08fbb47d49a4d9dc59b96922baeb355310
         source.registerCorsConfiguration("/**", cors);
 
         return source;
     }
-
-//    @Bean
-//    public OAuth2User oauth2User() {
-//        Map<String, Object> attributes = Collections.singletonMap("email", "user@example.com");
-//        OAuth2User user = new DefaultOAuth2User(
-//                Collections.singleton(new SimpleGrantedAuthority("CLIENT")), // Authorities
-//                attributes, // Attributes
-//                "email"
-//        );
-//
-//        return user;
-//    }
 
     @Bean
     public RestTemplate restTemplate() {

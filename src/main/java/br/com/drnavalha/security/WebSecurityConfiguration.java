@@ -17,6 +17,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.session.SessionRegistry;
@@ -64,10 +65,7 @@ public class WebSecurityConfiguration {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         http.cors(withDefaults());
-        http.csrf(c -> c.ignoringRequestMatchers(
-                "/auth/**",
-                "/client/**",
-                "/login"));
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http
                 .getConfigurer(OAuth2AuthorizationServerConfigurer.class)
@@ -111,7 +109,6 @@ public class WebSecurityConfiguration {
                 "/auth/**",
                 "/client/**",
                 "/login"));
-
 
         return http.build();
     }
