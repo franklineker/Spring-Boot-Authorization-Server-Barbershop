@@ -9,5 +9,4 @@ Use `maven` to install and run the project:
 ```bash
 mvn package
 mvn clean install
-``´
 
